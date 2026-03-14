@@ -111,53 +111,49 @@ export const LocationSearch = forwardRef<LocationSearchRef, LocationSearchProps>
 
   return (
     <div className="relative w-full">
-      <Card className="bg-card/60 backdrop-blur-md border-border/50 shadow-lg w-full">
-        <div className="p-4 sm:p-5 lg:p-4 w-full">
-          <form onSubmit={handleSearch} className="flex gap-3 w-full">
-            <div className="relative flex-1 min-w-0">
-              <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-                {loading ? (
-                  <Loader2 className="h-4 w-4 text-muted-foreground animate-spin" />
-                ) : (
-                  <Search className="h-4 w-4 text-muted-foreground" />
-                )}
-              </div>
-              
-              <Input
-                ref={inputRef}
-                type="text"
-                placeholder="Search for a city..."
-                value={query}
-                onChange={handleInputChange}
-                className="pl-10 pr-10 bg-input-background border-border/50 focus:border-primary/50 focus:ring-primary/20 text-base h-10 sm:h-11 lg:h-10 w-full"
-                onFocus={() => {
-                  if (results.length > 0) setShowResults(true);
-                }}
-              />
-              
-              {query && (
-                <button
-                  type="button"
-                  onClick={clearSearch}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 hover:bg-accent rounded-full transition-colors"
-                >
-                  <X className="h-3 w-3 text-muted-foreground" />
-                </button>
-              )}
-            </div>
-            
-            <Button
-              type="submit"
-              variant="default"
-              size="default"
-              disabled={loading || !query.trim()}
-              className="px-4 shadow-md text-base h-10 sm:h-11 lg:h-10 flex-shrink-0"
+      <form onSubmit={handleSearch} className="flex gap-3 w-full">
+        <div className="relative flex-1 min-w-0">
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+            {loading ? (
+              <Loader2 className="h-4 w-4 text-muted-foreground animate-spin" />
+            ) : (
+              <Search className="h-4 w-4 text-muted-foreground" />
+            )}
+          </div>
+          
+          <Input
+            ref={inputRef}
+            type="text"
+            placeholder="Search for a city..."
+            value={query}
+            onChange={handleInputChange}
+            className="pl-10 pr-10 bg-input-background border-border/50 focus:border-primary/50 focus:ring-primary/20 text-base h-10 sm:h-11 lg:h-10 w-full"
+            onFocus={() => {
+              if (results.length > 0) setShowResults(true);
+            }}
+          />
+          
+          {query && (
+            <button
+              type="button"
+              onClick={clearSearch}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 hover:bg-accent rounded-full transition-colors"
             >
-              <Search className="h-4 w-4" />
-            </Button>
-          </form>
+              <X className="h-3 w-3 text-muted-foreground" />
+            </button>
+          )}
         </div>
-      </Card>
+        
+        <Button
+          type="submit"
+          variant="default"
+          size="default"
+          disabled={loading || !query.trim()}
+          className="px-4 shadow-md text-base h-10 sm:h-11 lg:h-10 flex-shrink-0"
+        >
+          <Search className="h-4 w-4" />
+        </Button>
+      </form>
 
       {/* Search Results - Much higher z-index */}
       {showResults && results.length > 0 && (
